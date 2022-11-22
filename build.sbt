@@ -11,9 +11,9 @@ inThisBuild(
     organization               := "com.indoorvivants",
     organizationName           := "Anton Sviridov",
     homepage := Some(
-      url("https://github.com/indoorvivants/scala-library-template")
+      url("https://github.com/indoorvivants/")
     ),
-    startYear := Some(2020),
+    startYear := Some(2022),
     licenses := List(
       "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")
     ),
@@ -50,36 +50,29 @@ lazy val munitSettings = Seq(
 
 lazy val root = project
   .in(file("."))
-  .aggregate(core.projectRefs*)
+  .aggregate(`opaque-newtypes`.projectRefs*)
   .aggregate(docs.projectRefs*)
   .settings(noPublish)
 
-lazy val core = projectMatrix
+lazy val `opaque-newtypes` = projectMatrix
   .in(file("modules/core"))
   .defaultAxes(defaults*)
   .settings(
-    name := "core",
+    moduleName := "opaque-newtypes",
     Test / scalacOptions ~= filterConsoleScalacOptions
   )
   .settings(munitSettings)
   .jvmPlatform(Versions.scalaVersions)
   .jsPlatform(Versions.scalaVersions, disableDependencyChecks)
   .nativePlatform(Versions.scalaVersions, disableDependencyChecks)
-  .enablePlugins(BuildInfoPlugin)
   .settings(
-    buildInfoPackage := "com.indoorvivants.library.internal",
-    buildInfoKeys := Seq[BuildInfoKey](
-      version,
-      scalaVersion,
-      scalaBinaryVersion
-    ),
     scalaJSUseMainModuleInitializer := true,
     scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule))
   )
 
 lazy val docs = projectMatrix
   .in(file("myproject-docs"))
-  .dependsOn(core)
+  .dependsOn(`opaque-newtypes`)
   .defaultAxes(defaults*)
   .settings(
     mdocVariables := Map(
@@ -96,7 +89,8 @@ val noPublish = Seq(
   publishLocal / skip := true
 )
 
-val defaults = Seq(VirtualAxis.scalaABIVersion("3.2.0"), VirtualAxis.jvm)
+val defaults =
+  Seq(VirtualAxis.scalaABIVersion(Versions.Scala3), VirtualAxis.jvm)
 
 val scalafixRules = Seq(
   "OrganizeImports",

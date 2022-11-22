@@ -1,41 +1,36 @@
-## Scala Library template
+## Opaque newtypes
 
-_This template is a version of [scala-library-template](https://github.com/indoorvivants/scala-library-template) but focused only on Scala 3_
+Internal library to define convenient newtypes.
 
-This is a template repository with some of the learnings from OSS Scala ecosystem applied.
+Incubated in various versions in the following projects:
 
+- [sn-bindgen](https://github.com/indoorvivants/sn-bindgen)
+- [langoustine](https://github.com/neandertech/langoustine/)
+- [sn-roguelike](https://github.com/indoorvivants/sn-roguelike)
 
-|                | JVM  | Scala.js (1.x) | Scala Native (0.4.0)  |
+|                | JVM  | Scala.js (1.x) | Scala Native (0.4.x)  |
 | -------------- | ---  | -------------- | --------------------- |
 | Scala 3.2.x    | ✅   | ✅             | ✅                    |
 
+See [tests](modules/core/src/test/scala/Tests) for usage.
 
-* Github Actions is used for CI and Releases
+Coordinates:
 
-   * On pushes and pull requests, `sbt ci` command is ran (more about it later)
-   * On tags, `sbt ci-release` command is ran, from [sbt-ci-release](https://github.com/olafurpg/sbt-ci-release)
-   * Version is determined using [sbt-dynver](https://github.com/dwijnand/sbt-dynver)
+```scala
+"com.indoorvivants" %%% "opaque-newtypes" % "<version>" // SBT
+"com.indoorvivants::opaque-newtypes::<version>" // Mill, Scala CLI
+```
 
-* Syntax formatting is verified using [sbt-scalafmt](https://github.com/scalameta/sbt-scalafmt)
+**What does "internal" mean?**
 
-* Imports are organised and checked using [organize-imports](https://github.com/liancheng/scalafix-organize-imports) Scalafix rule
+It means that version compatibility is not enforced, the usage patterns are 
+tailored for how I see things, and in general I would alter things at will with 
+little to know consideration for downstream users - it being internal, I assume 
+myself to be the target audience.
 
-  * Several other Scalafix rules are enabled by default, see [.scalafix.conf](.scalafix.conf)
+That said, I welcome (and will gladly give credit) all cool ideas and contributions.
+To balance those two seemingly opposite intentions, I strive to keep the licence as 
+permissive as possible and the code structure as conducive to copypasta as possible.
 
-* Compilation flags are set using [sbt-tpolecat](https://github.com/DavidGregory084/sbt-tpolecat)
-
-* Explicit dependencies are checked using [sbt-explicit-dependencies](https://github.com/cb372/sbt-explicit-dependencies)
-
-* Presence of Licence header is checked using [sbt-header](https://github.com/sbt/sbt-header/)
-
-* Binary incompatibilities among dependencies are checked using [sbt-missinglink](https://github.com/scalacenter/sbt-missinglink)
-
-* Build matrix is managed using [sbt-projectmatrix](https://github.com/sbt/sbt-projectmatrix)
-
-### `sbt preCI`
-
-A `preCI` command is added - which will reformat, apply scalafix rules, create licence headers, run missinglink, etc.
-
-This command is designed to be run before pushing, **not on CI**.
-
-`sbt ci` command only runs checks, it never changes sources.
+The reason it's public is because I'm already paying more than I want for private Github Actions minutes 
+and it's eating rapidly into my family's food budget (joke).
