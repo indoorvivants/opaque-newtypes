@@ -11,7 +11,7 @@ inThisBuild(
     organization               := "com.indoorvivants",
     organizationName           := "Anton Sviridov",
     homepage := Some(
-      url("https://github.com/indoorvivants/")
+      url("https://github.com/indoorvivants/opaque-newtypes")
     ),
     startYear := Some(2022),
     licenses := List(
@@ -21,7 +21,7 @@ inThisBuild(
       Developer(
         "keynmol",
         "Anton Sviridov",
-        "keynmol@gmail.com",
+        "velvetbaldmime@protonmail.com",
         url("https://blog.indoorvivants.com")
       )
     )
