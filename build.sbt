@@ -4,12 +4,10 @@ Global / excludeLintKeys += scalaJSLinkerConfig
 
 inThisBuild(
   List(
-    scalafixDependencies += "com.github.liancheng" %% "organize-imports" % Versions.organizeImports,
-    semanticdbEnabled          := true,
-    semanticdbVersion          := scalafixSemanticdb.revision,
-    scalafixScalaBinaryVersion := scalaBinaryVersion.value,
-    organization               := "com.indoorvivants",
-    organizationName           := "Anton Sviridov",
+    semanticdbEnabled := true,
+    semanticdbVersion := scalafixSemanticdb.revision,
+    organization      := "com.indoorvivants",
+    organizationName  := "Anton Sviridov",
     homepage := Some(
       url("https://github.com/indoorvivants/opaque-newtypes")
     ),
@@ -29,10 +27,9 @@ inThisBuild(
 )
 
 val Versions = new {
-  val Scala3          = "3.3.3"
-  val munit           = "1.0.0"
-  val organizeImports = "0.6.0"
-  val scalaVersions   = Seq(Scala3)
+  val Scala3        = "3.3.3"
+  val munit         = "1.0.0"
+  val scalaVersions = Seq(Scala3)
 }
 
 // https://github.com/cb372/sbt-explicit-dependencies/issues/27
